@@ -28,7 +28,11 @@ const config = {
   webpackFinal: async (config) => {
     config.plugins.push(
       new webpack.DefinePlugin({
-        'process.env.WEBPACK_TARGET': JSON.stringify('web')
+        DEBUG: false,
+        NODE_ENV: `'${process.env.NODE_ENV}'`,
+        WEBPACK_TARGET: `'web'`,
+        ['global.GENTLY']: false
+
       })
     );
     config.resolve.alias = {
@@ -49,6 +53,11 @@ const config = {
       path.resolve(__dirname, '../app'),
       'node_modules'
     ];
+
+    config.resolve = {
+      ...config.resolve,
+      conditionNames: ['browser', 'require', 'node', 'default'],
+    }
 
     config.module.rules = config.module.rules.filter(
       (rule) => !(rule.test && rule.test.toString().includes('svg'))
