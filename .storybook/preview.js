@@ -1,9 +1,9 @@
 /** @type { import('@storybook/react-webpack5').Preview } */
 
-import React from 'react'
+import React, {useRef, useEffect} from 'react'
 
 import {BrowserRouter} from 'react-router-dom' // Import BrowserRouter
-import {CurrencyProvider} from '@salesforce/retail-react-app/app/contexts'
+import {CurrencyProvider, MultiSiteProvider} from '@salesforce/retail-react-app/app/contexts'
 import {IntlProvider} from 'react-intl' // Adjust the import path as necessary
 import {AddToCartModalProvider} from '@salesforce/retail-react-app/app/hooks/use-add-to-cart-modal' // Adjust the import path as necessary
 import {CommerceApiProvider} from '@salesforce/commerce-sdk-react'
@@ -15,6 +15,11 @@ import {getConfig} from '@salesforce/pwa-kit-runtime/utils/ssr-config'
 import {ChakraProvider} from '@salesforce/retail-react-app/app/components/shared/ui'
 import theme from '@salesforce/retail-react-app/app/theme'
 import mockConfig from '../config/mocks/default'
+import {ServerContext} from '@salesforce/pwa-kit-react-sdk/ssr/universal/contexts'
+import fallbackMessages from '@salesforce/retail-react-app/app/static/translations/compiled/en-US.json'
+
+import {createUrlTemplate} from '@salesforce/retail-react-app/app/utils/url'
+import {getSiteByReference} from '@salesforce/retail-react-app/app/utils/site-utils'
 
 export const DEFAULT_LOCALE = 'en-US'
 
@@ -25,31 +30,54 @@ export const withProviders = (Story, context) => {
     const appConfig = config.app
     const commerceApiConfig = appConfig.commerceAPI
     const queryClient = new QueryClient({})
+    const locale = DEFAULT_LOCALE
+
+    const mounted = useRef()
+    // We use this to track mounted state.
+    useEffect(() => {
+        mounted.current = true
+        return () => {
+            mounted.current = false
+        }
+    }, [])
+
+    const site = getSiteByReference(appConfig.defaultSite)
+    const messages = fallbackMessages
+
+    const buildUrl = createUrlTemplate(
+        appConfig,
+        site?.alias || site?.id,
+        locale.alias || locale.id
+    )
 
     return (
         <QueryClientProvider client={queryClient}>
-            <CommerceApiProvider
-                shortCode={commerceApiConfig.parameters.shortCode}
-                clientId={commerceApiConfig.parameters.clientId}
-                organizationId={commerceApiConfig.parameters.organizationId}
-                siteId={'RefArch'}
-                locale={'en-US'}
-                proxy={''}
-                redirectURI={''}
-                fetchedToken={''}
-            >
-                <BrowserRouter>
-                    <IntlProvider locale={DEFAULT_LOCALE} defaultLocale={DEFAULT_LOCALE}>
-                        <ChakraProvider theme={theme}>
-                            <CurrencyProvider>
-                                <AddToCartModalProvider>
-                                    <Story {...context} />
-                                </AddToCartModalProvider>
-                            </CurrencyProvider>
-                        </ChakraProvider>
-                    </IntlProvider>
-                </BrowserRouter>
-            </CommerceApiProvider>
+            <ServerContext.Provider value={{}}>
+                <IntlProvider locale={locale.id} defaultLocale={DEFAULT_LOCALE} messages={messages}>
+                    <MultiSiteProvider site={site} locale={locale} buildUrl={buildUrl}>
+                        <CommerceApiProvider
+                            shortCode={commerceApiConfig.parameters.shortCode}
+                            clientId={commerceApiConfig.parameters.clientId}
+                            organizationId={commerceApiConfig.parameters.organizationId}
+                            siteId={'RefArch'}
+                            locale={'en-US'}
+                            proxy={''}
+                            redirectURI={''}
+                            fetchedToken={''}
+                        >
+                            <BrowserRouter>
+                                <ChakraProvider theme={theme}>
+                                    <CurrencyProvider>
+                                        <AddToCartModalProvider>
+                                            <Story {...context} />
+                                        </AddToCartModalProvider>
+                                    </CurrencyProvider>
+                                </ChakraProvider>
+                            </BrowserRouter>
+                        </CommerceApiProvider>
+                    </MultiSiteProvider>
+                </IntlProvider>
+            </ServerContext.Provider>
         </QueryClientProvider>
     )
 }
