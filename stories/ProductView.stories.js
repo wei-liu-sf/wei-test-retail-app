@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductView from '../app/components/product-view';
-import MockProductDetail from '../app/mocks/variant-750518699578M.js';
+import MockProductDetail from '../app/mocks/master-25517823M.js';
 
 export default {
     title: 'Components/ProductView',
