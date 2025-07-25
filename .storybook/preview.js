@@ -23,13 +23,22 @@ import {getSiteByReference} from '@salesforce/retail-react-app/app/utils/site-ut
 
 export const DEFAULT_LOCALE = 'en-US'
 
+// Create a stable QueryClient instance
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: false,
+            refetchOnWindowFocus: false,
+        },
+    },
+})
+
 export const withProviders = (Story, context) => {
     window.__CONFIG__ = mockConfig
 
     const config = getConfig()
     const appConfig = config.app
     const commerceApiConfig = appConfig.commerceAPI
-    const queryClient = new QueryClient({})
     const locale = DEFAULT_LOCALE
 
     const mounted = useRef()

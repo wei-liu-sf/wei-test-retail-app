@@ -14,7 +14,7 @@ import {useCustomer, useCustomerId, useCustomerType} from '@salesforce/commerce-
 export const useCurrentCustomer = () => {
     const customerId = useCustomerId()
     const {isRegistered, isGuest, customerType} = useCustomerType()
-    const query = useCustomer({parameters: {customerId}}, {enabled: !!customerId && isRegistered})
+    const query = useCustomer({parameters: {customerId: customerId || ''}}, {enabled: !!customerId && isRegistered})
     const value = {
         ...query,
         data: {

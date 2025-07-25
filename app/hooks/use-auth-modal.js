@@ -76,7 +76,7 @@ export const AuthModal = ({
     const prevAuthType = usePrevious(customerType)
 
     const customer = useCustomer(
-        {parameters: {customerId}},
+        {parameters: {customerId: customerId || ''}},
         {enabled: !!customerId && isRegistered}
     )
 
@@ -98,7 +98,7 @@ export const AuthModal = ({
         : `${appOrigin}${passwordlessConfigCallback}`
 
     const {data: baskets} = useCustomerBaskets(
-        {parameters: {customerId}},
+        {parameters: {customerId: customerId || ''}},
         {enabled: !!customerId && !isServer, keepPreviousData: true}
     )
     const mergeBasket = useShopperBasketsMutation('mergeBasket')

@@ -120,7 +120,7 @@ const BundleProductViewModal = ({product: bundle, isOpen, onClose, updateCart, .
                                         ..._product,
                                         ...productViewModalData.product.bundledProductItems[i]
                                     }
-                                    const quantityPerBundle = product.quantity / bundle.quantity
+                                    const quantityPerBundle = product?.quantity / bundle?.quantity
 
                                     return (
                                         <ProductView
@@ -128,7 +128,7 @@ const BundleProductViewModal = ({product: bundle, isOpen, onClose, updateCart, .
                                             // Do not use an arrow function as we are manipulating the functions scope.
                                             ref={function (ref) {
                                                 // Assign the "set" scope of the ref, this is how we access the internal validation.
-                                                childProductRefs.current[product.itemId] = {
+                                                childProductRefs.current[product?.itemId] = {
                                                     ref,
                                                     validateOrderability: this.validateOrderability
                                                 }

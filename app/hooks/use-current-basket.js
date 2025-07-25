@@ -15,7 +15,7 @@ import {isServer} from '@salesforce/retail-react-app/app/utils/utils'
 export const useCurrentBasket = ({id = ''} = {}) => {
     const customerId = useCustomerId()
     const {data: basketsData, ...restOfQuery} = useCustomerBaskets(
-        {parameters: {customerId}},
+        {parameters: {customerId: customerId || ''}},
         {
             enabled: !!customerId && !isServer
         }

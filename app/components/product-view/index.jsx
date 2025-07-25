@@ -29,7 +29,6 @@ import ImageGallery from '@salesforce/retail-react-app/app/components/image-gall
 import Breadcrumb from '@salesforce/retail-react-app/app/components/breadcrumb'
 import Link from '@salesforce/retail-react-app/app/components/link'
 import withRegistration from '@salesforce/retail-react-app/app/components/with-registration'
-import {Skeleton as ImageGallerySkeleton} from '@salesforce/retail-react-app/app/components/image-gallery'
 import {HideOnDesktop, HideOnMobile} from '@salesforce/retail-react-app/app/components/responsive'
 import QuantityPicker from '@salesforce/retail-react-app/app/components/quantity-picker'
 import {useToast} from '@salesforce/retail-react-app/app/hooks/use-toast'
@@ -126,6 +125,9 @@ const ProductView = forwardRef(
         const showToast = useToast()
         const intl = useIntl()
         const location = useLocation()
+        
+        // Ensure location is stable to prevent hook count changes
+        const stableLocation = useMemo(() => location, [location.pathname, location.search])
         const {
             isOpen: isAddToCartModalOpen,
             onOpen: onAddToCartModalOpen,
@@ -147,9 +149,9 @@ const ProductView = forwardRef(
             stepQuantity,
             isOutOfStock,
             unfulfillable
-        } = useDerivedProduct(product, isProductPartOfSet, isProductPartOfBundle)
+        } = useDerivedProduct(product || null, isProductPartOfSet, isProductPartOfBundle)
         const priceData = useMemo(() => {
-            return getPriceData(product, {quantity})
+            return getPriceData(product || null, {quantity})
         }, [product, quantity])
         const canAddToWishlist = !isProductLoading
         const isProductASet = product?.type.set
@@ -198,7 +200,7 @@ const ProductView = forwardRef(
                 }
             }
             return {disableButton: shouldDisableButton, customInventoryMessage: currentInventoryMsg}
-        }, [showInventoryMessage, childProductOrderability])
+        }, [showInventoryMessage, childProductOrderability, isProductASet, isProductABundle, intl])
 
         const validateAndShowError = (opts = {}) => {
             const {scrollErrorIntoView = true} = opts
@@ -364,7 +366,7 @@ const ProductView = forwardRef(
             if (isAddToCartModalOpen) {
                 onAddToCartModalClose()
             }
-        }, [location.pathname])
+        }, [stableLocation.pathname, isAddToCartModalOpen, onAddToCartModalClose])
 
         useEffect(() => {
             if (
@@ -374,17 +376,17 @@ const ProductView = forwardRef(
             ) {
                 toggleShowOptionsMessage(false)
             }
-        }, [variationParams])
+        }, [variationParams, isProductASet, isProductABundle, variant, quantity, stockLevel, validateOrderability, toggleShowOptionsMessage])
 
         useEffect(() => {
             if (variant) {
                 onVariantSelected(product, variant, quantity)
             }
-        }, [variant?.productId, quantity])
+        }, [variant?.productId, quantity, variant, product, onVariantSelected])
 
         useEffect(() => {
             if (isProductPartOfBundle || isProductPartOfSet) {
-                const key = product.itemId ?? product.id
+                const key = product?.itemId ?? product?.id
                 // when showInventoryMessage is true, it means child product is not orderable
                 setChildProductOrderability((previousState) => ({
                     ...previousState,
@@ -397,7 +399,7 @@ const ProductView = forwardRef(
                     }
                 }))
             }
-        }, [showInventoryMessage, inventoryMessage])
+        }, [showInventoryMessage, inventoryMessage, isProductPartOfBundle, isProductPartOfSet, product?.itemId, product?.id, product?.name, isOutOfStock, unfulfillable, stockLevel, setChildProductOrderability])
 
         return (
             <Flex direction={'column'} data-testid="product-view" ref={ref}>
@@ -415,30 +417,27 @@ const ProductView = forwardRef(
                 <Flex direction={['column', 'column', 'column', 'row']}>
                     {showImageGallery && (
                         <Box flex={1} mr={[0, 0, 0, 6, 6]}>
-                            {product ? (
-                                <>
-                                    <ImageGallery
-                                        size={imageSize}
-                                        imageGroups={product.imageGroups}
-                                        selectedVariationAttributes={variationParams}
-                                        lazy={isProductPartOfSet || isProductPartOfBundle}
-                                    />
-                                    <HideOnMobile>
-                                        {showFullLink && product && (
-                                            <Link
-                                                to={`/product/${product.master.masterId}`}
-                                                color="blue.600"
-                                            >
-                                                <FormattedMessage
-                                                    id="product_view.link.full_details"
-                                                    defaultMessage="See full details"
-                                                />
-                                            </Link>
-                                        )}
-                                    </HideOnMobile>
-                                </>
-                            ) : (
-                                <ImageGallerySkeleton />
+                            <ImageGallery
+                                size={imageSize}
+                                imageGroups={product?.imageGroups}
+                                selectedVariationAttributes={variationParams}
+                                lazy={isProductPartOfSet || isProductPartOfBundle}
+                                showSkeleton={!product}
+                            />
+                            {product && (
+                                <HideOnMobile>
+                                    {showFullLink && product && (
+                                        <Link
+                                            to={`/product/${product?.master?.masterId}`}
+                                            color="blue.600"
+                                        >
+                                            <FormattedMessage
+                                                id="product_view.link.full_details"
+                                                defaultMessage="See full details"
+                                            />
+                                        </Link>
+                                    )}
+                                </HideOnMobile>
                             )}
                         </Box>
                     )}
@@ -613,7 +612,7 @@ const ProductView = forwardRef(
                             <HideOnDesktop>
                                 {showFullLink && product && (
                                     <Link
-                                        to={`/product/${product.master.masterId}`}
+                                        to={`/product/${product?.master?.masterId}`}
                                         color="blue.600"
                                     >
                                         <FormattedMessage

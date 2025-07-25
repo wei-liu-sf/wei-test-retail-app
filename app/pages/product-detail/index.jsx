@@ -158,9 +158,9 @@ const ProductDetail = () => {
 
     if (isProductABundle && bundleChildrenData) {
         // Loop through the bundle children and update the inventory for variant selection
-        product.bundledProducts.forEach(({product: childProduct}, index) => {
+        product?.bundledProducts?.forEach(({product: childProduct}, index) => {
             const matchingChildProduct = bundleChildrenData.data.find(
-                (bundleChild) => bundleChild.master.masterId === childProduct.id
+                (bundleChild) => bundleChild?.master?.masterId === childProduct?.id
             )
             if (matchingChildProduct) {
                 product.bundledProducts[index].product = {
@@ -327,12 +327,12 @@ const ProductDetail = () => {
         // one that isn't selected.
         const selectedProductIds = Object.keys(childProductSelection)
         const firstUnselectedProduct = comboProduct.childProducts.find(
-            ({product: childProduct}) => !selectedProductIds.includes(childProduct.id)
+            ({product: childProduct}) => !selectedProductIds.includes(childProduct?.id)
         )?.product
 
         if (firstUnselectedProduct) {
             // Get the reference to the product view and scroll to it.
-            const {ref} = childProductRefs.current[firstUnselectedProduct.id]
+            const {ref} = childProductRefs.current[firstUnselectedProduct?.id]
 
             if (ref.scrollIntoView) {
                 ref.scrollIntoView({
@@ -363,8 +363,8 @@ const ProductDetail = () => {
 
             const productItems = [
                 {
-                    productId: product.id,
-                    price: product.price,
+                    productId: product?.id,
+                    price: product?.price,
                     quantity: selectedQuantity,
                     // The add item endpoint in the shopper baskets API does not respect variant selections
                     // for bundle children, so we have to make a follow up call to update the basket
@@ -381,7 +381,7 @@ const ProductDetail = () => {
             const res = await addItemToNewOrExistingBasket(productItems)
 
             const bundleChildMasterIds = childProductSelections.map((child) => {
-                return child.product.id
+                return child.product?.id
             })
 
             // since the returned data includes all products in basket
@@ -462,7 +462,7 @@ const ProductDetail = () => {
             <Helmet>
                 <title>{product?.pageTitle}</title>
                 {product?.pageMetaTags?.length > 0 &&
-                    product.pageMetaTags.map(({id, value}) => (
+                    product?.pageMetaTags.map(({id, value}) => (
                         <meta name={id} content={value} key={id} />
                     ))}
                 {/* Fallback for description if not included in pageMetaTags */}
