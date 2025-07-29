@@ -43,7 +43,7 @@ export const usAddresses = {
         postalCode: '94102',
         countryCode: 'US'
     }
-};
+}
 
 // International Addresses
 export const internationalAddresses = {
@@ -137,7 +137,7 @@ export const internationalAddresses = {
         postalCode: '111 51',
         countryCode: 'SE'
     }
-};
+}
 
 // Special Cases
 export const specialAddresses = {
@@ -177,13 +177,13 @@ export const specialAddresses = {
         postalCode: '09012',
         countryCode: 'US'
     }
-};
+}
 
 // All addresses combined
 export const allAddresses = {
     ...usAddresses,
     ...internationalAddresses,
     ...specialAddresses
-};
+}
 
-export default allAddresses; 
+export default allAddresses

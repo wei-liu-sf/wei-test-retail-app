@@ -106,12 +106,13 @@ export const useVariationAttributes = (
     // for query parameters, so when a new variant is selected, a new query parameter is added since variants
     // have different IDs. The old one is not overwritten with existing logic so we remove it here
     if (isBundleChildVariant) {
-        const [allParams] = existingParams
-        (product?.variants || []).forEach(({productId: variantId}) => {
-            if (variantId !== product?.id && allParams.get(variantId)) {
-                allParams.delete(variantId)
+        const [allParams] = existingParams(product?.variants || []).forEach(
+            ({productId: variantId}) => {
+                if (variantId !== product?.id && allParams.get(variantId)) {
+                    allParams.delete(variantId)
+                }
             }
-        })
+        )
     }
 
     return useMemo(

@@ -35,21 +35,26 @@ const SMALL = 'small'
  * you are waiting for product data to be returnd from the server.
  */
 
-
 /**
  * The image gallery displays a hero image and thumbnails below it. You can control which
  * image groups that are use by passing in the current selected variation values.
  */
-const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size = 'md', lazy = false, showSkeleton = false}) => {
+const ImageGallery = ({
+    imageGroups = [],
+    selectedVariationAttributes = {},
+    size = 'md',
+    lazy = false,
+    showSkeleton = false
+}) => {
     const [selectedIndex, setSelectedIndex] = useState(0)
-    
+
     // Ensure selectedIndex is always a valid number
     const validSelectedIndex = Math.max(0, Math.min(selectedIndex, 999))
-    
+
     // Ensure size is always a valid value to prevent hook count changes
     const validSize = size === 'lg' || size === 'sm' ? size : 'md'
     const styles = useMultiStyleConfig('ImageGallery', {size: validSize}) || {}
-    
+
     // Ensure styles object is always stable to prevent hook count changes
     const stableStyles = useMemo(() => styles, [styles])
     const location = useLocation()
@@ -82,13 +87,14 @@ const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size 
     )
 
     const thumbnailImages = thumbnailImageGroup?.images || []
-    
+
     // Ensure selectedIndex is within bounds
-    const safeSelectedIndex = Math.min(selectedIndex, (thumbnailImages.length - 1) || 0)
+    const safeSelectedIndex = Math.min(selectedIndex, thumbnailImages.length - 1 || 0)
     const heroImage = heroImageGroup?.images?.[safeSelectedIndex]
     const loadingStrategy = lazy ? 'lazy' : 'eager'
 
-    const heroImageMaxWidth = stableStyles.heroImage?.maxWidth?.[3] || stableStyles.heroImage?.maxWidth?.[0] || '100%' // in px
+    const heroImageMaxWidth =
+        stableStyles.heroImage?.maxWidth?.[3] || stableStyles.heroImage?.maxWidth?.[0] || '100%' // in px
 
     if (showSkeleton) {
         return (
@@ -99,7 +105,11 @@ const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size 
                     </AspectRatio>
                     <Flex>
                         {new Array(4).fill(0).map((_, index) => (
-                            <AspectRatio ratio={1} {...(stableStyles.thumbnailImageSkeleton || {})} key={index}>
+                            <AspectRatio
+                                ratio={1}
+                                {...(stableStyles.thumbnailImageSkeleton || {})}
+                                key={index}
+                            >
                                 <ChakraSkeleton />
                             </AspectRatio>
                         ))}

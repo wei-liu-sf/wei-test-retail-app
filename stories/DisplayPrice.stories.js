@@ -1,5 +1,5 @@
-import React from 'react';
-import DisplayPrice from '../app/components/display-price';
+import React from 'react'
+import DisplayPrice from '../app/components/display-price'
 
 export default {
     title: 'Components/DisplayPrice',
@@ -63,37 +63,37 @@ The component expects a priceData object with the following properties:
     argTypes: {
         priceData: {
             description: 'Price data object containing all pricing information',
-            control: { type: 'object' }
+            control: {type: 'object'}
         },
         currency: {
             description: 'Currency code for price display',
-            control: { type: 'text' },
+            control: {type: 'text'},
             defaultValue: 'USD'
         },
         quantity: {
             description: 'Quantity to calculate total price',
-            control: { type: 'number' },
+            control: {type: 'number'},
             defaultValue: 1
         },
         labelForA11y: {
             description: 'Accessibility label for screen readers',
-            control: { type: 'text' }
+            control: {type: 'text'}
         },
         currentPriceProps: {
             description: 'Additional props for CurrentPrice component',
-            control: { type: 'object' }
+            control: {type: 'object'}
         },
         listPriceProps: {
             description: 'Additional props for ListPrice component',
-            control: { type: 'object' }
+            control: {type: 'object'}
         }
     }
-};
+}
 
-const Template = (args) => <DisplayPrice {...args} />;
+const Template = (args) => <DisplayPrice {...args} />
 
 // Standard product with current price only
-export const StandardPrice = Template.bind({});
+export const StandardPrice = Template.bind({})
 StandardPrice.args = {
     priceData: {
         currentPrice: 29.99,
@@ -103,17 +103,17 @@ StandardPrice.args = {
         isRange: false
     },
     currency: 'USD'
-};
+}
 StandardPrice.parameters = {
     docs: {
         description: {
             story: 'Standard product price display - shows only the current price.'
         }
     }
-};
+}
 
 // Product on sale with list price
-export const SalePrice = Template.bind({});
+export const SalePrice = Template.bind({})
 SalePrice.args = {
     priceData: {
         currentPrice: 29.99,
@@ -124,17 +124,17 @@ SalePrice.args = {
         isRange: false
     },
     currency: 'USD'
-};
+}
 SalePrice.parameters = {
     docs: {
         description: {
             story: 'Product on sale - shows current price with crossed-out list price.'
         }
     }
-};
+}
 
 // Product set with "From" pricing
-export const SetPrice = Template.bind({});
+export const SetPrice = Template.bind({})
 SetPrice.args = {
     priceData: {
         currentPrice: 29.99,
@@ -144,17 +144,17 @@ SetPrice.args = {
         isRange: false
     },
     currency: 'USD'
-};
+}
 SetPrice.parameters = {
     docs: {
         description: {
             story: 'Product set - shows "From X" pricing indicating the lowest price in the set.'
         }
     }
-};
+}
 
 // Master product with range pricing
-export const MasterPrice = Template.bind({});
+export const MasterPrice = Template.bind({})
 MasterPrice.args = {
     priceData: {
         currentPrice: 29.99,
@@ -165,17 +165,17 @@ MasterPrice.args = {
         isRange: true
     },
     currency: 'USD'
-};
+}
 MasterPrice.parameters = {
     docs: {
         description: {
             story: 'Master product - shows price range with "From X" format for variants.'
         }
     }
-};
+}
 
 // Price with quantity
-export const PriceWithQuantity = Template.bind({});
+export const PriceWithQuantity = Template.bind({})
 PriceWithQuantity.args = {
     priceData: {
         currentPrice: 29.99,
@@ -187,21 +187,21 @@ PriceWithQuantity.args = {
     },
     currency: 'USD',
     quantity: 3
-};
+}
 PriceWithQuantity.parameters = {
     docs: {
         description: {
             story: 'Price with quantity - shows total price calculated for multiple items.'
         }
     }
-};
+}
 
 // Different currencies
 export const DifferentCurrencies = () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '20px' }}>
+    <div style={{display: 'flex', flexDirection: 'column', gap: '20px', padding: '20px'}}>
         <div>
             <h4>USD</h4>
-            <DisplayPrice 
+            <DisplayPrice
                 priceData={{
                     currentPrice: 29.99,
                     listPrice: 39.99,
@@ -215,10 +215,10 @@ export const DifferentCurrencies = () => (
         </div>
         <div>
             <h4>EUR</h4>
-            <DisplayPrice 
+            <DisplayPrice
                 priceData={{
-                    currentPrice: 25.50,
-                    listPrice: 35.00,
+                    currentPrice: 25.5,
+                    listPrice: 35.0,
                     isOnSale: true,
                     isASet: false,
                     isMaster: false,
@@ -229,7 +229,7 @@ export const DifferentCurrencies = () => (
         </div>
         <div>
             <h4>GBP</h4>
-            <DisplayPrice 
+            <DisplayPrice
                 priceData={{
                     currentPrice: 22.99,
                     listPrice: 32.99,
@@ -243,7 +243,7 @@ export const DifferentCurrencies = () => (
         </div>
         <div>
             <h4>JPY</h4>
-            <DisplayPrice 
+            <DisplayPrice
                 priceData={{
                     currentPrice: 3500,
                     listPrice: 4500,
@@ -256,21 +256,21 @@ export const DifferentCurrencies = () => (
             />
         </div>
     </div>
-);
+)
 DifferentCurrencies.parameters = {
     docs: {
         description: {
             story: 'Price display in different currencies - shows how the component handles various currency formats.'
         }
     }
-};
+}
 
 // Price scenarios showcase
 export const PriceScenarios = () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '20px' }}>
+    <div style={{display: 'flex', flexDirection: 'column', gap: '20px', padding: '20px'}}>
         <div>
             <h4>Standard Product</h4>
-            <DisplayPrice 
+            <DisplayPrice
                 priceData={{
                     currentPrice: 29.99,
                     isOnSale: false,
@@ -283,7 +283,7 @@ export const PriceScenarios = () => (
         </div>
         <div>
             <h4>Product on Sale</h4>
-            <DisplayPrice 
+            <DisplayPrice
                 priceData={{
                     currentPrice: 29.99,
                     listPrice: 39.99,
@@ -297,7 +297,7 @@ export const PriceScenarios = () => (
         </div>
         <div>
             <h4>Product Set</h4>
-            <DisplayPrice 
+            <DisplayPrice
                 priceData={{
                     currentPrice: 29.99,
                     isOnSale: false,
@@ -310,7 +310,7 @@ export const PriceScenarios = () => (
         </div>
         <div>
             <h4>Master Product</h4>
-            <DisplayPrice 
+            <DisplayPrice
                 priceData={{
                     currentPrice: 29.99,
                     listPrice: 39.99,
@@ -324,7 +324,7 @@ export const PriceScenarios = () => (
         </div>
         <div>
             <h4>Bundle Product</h4>
-            <DisplayPrice 
+            <DisplayPrice
                 priceData={{
                     currentPrice: 79.99,
                     listPrice: 99.99,
@@ -337,14 +337,14 @@ export const PriceScenarios = () => (
             />
         </div>
     </div>
-);
+)
 PriceScenarios.parameters = {
     docs: {
         description: {
             story: 'Various price scenarios - demonstrates different pricing configurations and their display formats.'
         }
     }
-};
+}
 
 // Interactive price editor
 export const InteractivePrice = () => {
@@ -355,97 +355,106 @@ export const InteractivePrice = () => {
         isASet: false,
         isMaster: false,
         isRange: false
-    });
+    })
 
     const updateField = (field, value) => {
-        setPriceData(prev => ({ ...prev, [field]: value }));
-    };
+        setPriceData((prev) => ({...prev, [field]: value}))
+    }
 
     return (
-        <div style={{ padding: '20px' }}>
-            <div style={{ marginBottom: '20px' }}>
+        <div style={{padding: '20px'}}>
+            <div style={{marginBottom: '20px'}}>
                 <h3>Price Display</h3>
-                <div style={{ 
-                    backgroundColor: 'white', 
-                    padding: '15px', 
-                    borderRadius: '8px',
-                    border: '1px solid #e0e0e0'
-                }}>
-                    <DisplayPrice 
-                        priceData={priceData}
-                        currency="USD"
-                    />
+                <div
+                    style={{
+                        backgroundColor: 'white',
+                        padding: '15px',
+                        borderRadius: '8px',
+                        border: '1px solid #e0e0e0'
+                    }}
+                >
+                    <DisplayPrice priceData={priceData} currency="USD" />
                 </div>
             </div>
-            
-            <div style={{ 
-                backgroundColor: '#f5f5f5', 
-                padding: '15px', 
-                borderRadius: '8px',
-                marginTop: '20px'
-            }}>
+
+            <div
+                style={{
+                    backgroundColor: '#f5f5f5',
+                    padding: '15px',
+                    borderRadius: '8px',
+                    marginTop: '20px'
+                }}
+            >
                 <h4>Edit Price Data</h4>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+                <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px'}}>
                     <div>
-                        <label>Current Price:</label>
-                        <input 
+                        <label htmlFor="currentPrice">Current Price:</label>
+                        <input
                             type="number"
                             step="0.01"
-                            value={priceData.currentPrice} 
-                            onChange={(e) => updateField('currentPrice', parseFloat(e.target.value))}
-                            style={{ width: '100%', padding: '5px', marginTop: '5px' }}
+                            id="currentPrice"
+                            value={priceData.currentPrice}
+                            onChange={(e) =>
+                                updateField('currentPrice', parseFloat(e.target.value))
+                            }
+                            style={{width: '100%', padding: '5px', marginTop: '5px'}}
                         />
                     </div>
                     <div>
-                        <label>List Price:</label>
-                        <input 
+                        <label htmlFor="listPrice">List Price:</label>
+                        <input
                             type="number"
                             step="0.01"
-                            value={priceData.listPrice || ''} 
-                            onChange={(e) => updateField('listPrice', e.target.value ? parseFloat(e.target.value) : null)}
-                            style={{ width: '100%', padding: '5px', marginTop: '5px' }}
+                            value={priceData.listPrice || ''}
+                            onChange={(e) =>
+                                updateField(
+                                    'listPrice',
+                                    e.target.value ? parseFloat(e.target.value) : null
+                                )
+                            }
+                            style={{width: '100%', padding: '5px', marginTop: '5px'}}
                         />
                     </div>
                     <div>
                         <label>
-                            <input 
+                            <input
                                 type="checkbox"
-                                checked={priceData.isOnSale} 
+                                checked={priceData.isOnSale}
                                 onChange={(e) => updateField('isOnSale', e.target.checked)}
-                                style={{ marginRight: '5px' }}
+                                style={{marginRight: '5px'}}
                             />
                             On Sale
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input 
+                            <input
                                 type="checkbox"
-                                checked={priceData.isASet} 
+                                checked={priceData.isASet}
                                 onChange={(e) => updateField('isASet', e.target.checked)}
-                                style={{ marginRight: '5px' }}
+                                style={{marginRight: '5px'}}
                             />
                             Is Set
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input 
+                            <input
                                 type="checkbox"
-                                checked={priceData.isMaster} 
+                                checked={priceData.isMaster}
                                 onChange={(e) => updateField('isMaster', e.target.checked)}
-                                style={{ marginRight: '5px' }}
+                                style={{marginRight: '5px'}}
                             />
                             Is Master
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input 
+                            <input
                                 type="checkbox"
-                                checked={priceData.isRange} 
+                                checked={priceData.isRange}
                                 onChange={(e) => updateField('isRange', e.target.checked)}
-                                style={{ marginRight: '5px' }}
+                                style={{marginRight: '5px'}}
                             />
                             Is Range
                         </label>
@@ -453,12 +462,12 @@ export const InteractivePrice = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 InteractivePrice.parameters = {
     docs: {
         description: {
             story: 'Interactive price editor - modify the price data to see how the component updates in real-time.'
         }
     }
-}; 
+}

@@ -125,7 +125,7 @@ const ProductView = forwardRef(
         const showToast = useToast()
         const intl = useIntl()
         const location = useLocation()
-        
+
         // Ensure location is stable to prevent hook count changes
         const stableLocation = useMemo(() => location, [location.pathname, location.search])
         const {
@@ -376,7 +376,16 @@ const ProductView = forwardRef(
             ) {
                 toggleShowOptionsMessage(false)
             }
-        }, [variationParams, isProductASet, isProductABundle, variant, quantity, stockLevel, validateOrderability, toggleShowOptionsMessage])
+        }, [
+            variationParams,
+            isProductASet,
+            isProductABundle,
+            variant,
+            quantity,
+            stockLevel,
+            validateOrderability,
+            toggleShowOptionsMessage
+        ])
 
         useEffect(() => {
             if (variant) {
@@ -399,7 +408,19 @@ const ProductView = forwardRef(
                     }
                 }))
             }
-        }, [showInventoryMessage, inventoryMessage, isProductPartOfBundle, isProductPartOfSet, product?.itemId, product?.id, product?.name, isOutOfStock, unfulfillable, stockLevel, setChildProductOrderability])
+        }, [
+            showInventoryMessage,
+            inventoryMessage,
+            isProductPartOfBundle,
+            isProductPartOfSet,
+            product?.itemId,
+            product?.id,
+            product?.name,
+            isOutOfStock,
+            unfulfillable,
+            stockLevel,
+            setChildProductOrderability
+        ])
 
         return (
             <Flex direction={'column'} data-testid="product-view" ref={ref}>
