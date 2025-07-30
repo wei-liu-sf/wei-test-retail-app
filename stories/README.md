@@ -40,6 +40,27 @@ This directory contains comprehensive Storybook stories for all components in th
 - Variant selection and stock status
 - Loading and error states
 
+### 7. Header
+**File**: `Header.stories.js` (10 stories)
+- Authentication state handling (guest, registered, premium)
+- Shopping basket integration
+- Responsive design across devices
+- Loading and error states
+
+### 8. AuthModal
+**File**: `AuthModal.stories.js` (14 stories)
+- Multiple authentication methods (password, passwordless, social)
+- Login, registration, and password reset
+- Form validation and error handling
+- Responsive design
+
+### 9. PromoCode
+**File**: `PromoCode.stories.js` (13 stories)
+- Apply and remove promotional codes
+- Basket integration with different scenarios
+- Form validation and error handling
+- Success feedback and loading states
+
 ## Quick Start
 
 ### Running Storybook
@@ -89,6 +110,12 @@ This creates a static build for deployment.
 ### Address Data
 - `addresses.js`: Comprehensive address examples including US, international, and special cases
 
-## Total Stories: 63
+### Customer Data
+- `customers.js`: Customer scenarios including guest, registered, premium, and incomplete users
+
+### Basket Data
+- `baskets.js`: Shopping basket scenarios including empty, guest, registered, promotional, and error states
+
+## Total Stories: 95
 
 All stories are lint-compliant, accessibility-compliant, and well-documented with comprehensive descriptions and interactive examples where appropriate. 

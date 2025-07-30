@@ -149,6 +149,85 @@ This directory contains comprehensive Storybook stories for all the components i
 - Stock status
 - Loading and error states
 
+### 7. Header
+**File**: `Header.stories.js`
+**Component**: `app/components/header`
+
+**Stories**:
+- **GuestUser**: Header for guest users (not authenticated)
+- **RegisteredUser**: Header for registered users
+- **PremiumUser**: Header for premium users with enhanced features
+- **EmptyBasket**: Header with empty shopping basket
+- **WithCustomContent**: Header with custom content in body
+- **MobileView**: Mobile-optimized header layout
+- **TabletView**: Tablet-optimized header layout
+- **DesktopView**: Desktop-optimized header layout
+- **LoadingState**: Header in loading state
+- **ErrorState**: Header in error state
+
+**Features**:
+- Logo and navigation
+- Search functionality
+- Account menu management
+- Shopping cart integration
+- Responsive design
+- Authentication state handling
+
+### 8. AuthModal
+**File**: `AuthModal.stories.js`
+**Component**: `app/components/auth-modal`
+
+**Stories**:
+- **LoginView**: Login form with email/password
+- **RegistrationView**: New user registration form
+- **PasswordResetView**: Password reset functionality
+- **PasswordlessLogin**: Email-based authentication
+- **SocialLoginEnabled**: Social login with providers
+- **WithCustomCallbacks**: Custom authentication callbacks
+- **PrefilledEmail**: Pre-filled email address
+- **LoadingState**: Loading state during authentication
+- **ErrorState**: Error state with validation messages
+- **UseAuthModalHook**: Hook usage example
+- **AllFeaturesEnabled**: All authentication features
+- **MobileView**: Mobile-optimized authentication
+- **TabletView**: Tablet-optimized authentication
+- **DesktopView**: Desktop-optimized authentication
+
+**Features**:
+- Multiple authentication methods
+- Form validation
+- Error handling
+- Loading states
+- Social login integration
+- Passwordless authentication
+
+### 9. PromoCode
+**File**: `PromoCode.stories.js`
+**Component**: `app/components/promo-code`
+
+**Stories**:
+- **EmptyBasket**: Promo code with empty basket
+- **WithAppliedPromo**: Applied promotional code
+- **WithErrors**: Validation errors
+- **LoadingState**: Loading during API calls
+- **SuccessState**: Success feedback
+- **MultiplePromos**: Multiple promotional codes
+- **UsePromoCodeHook**: Hook usage example
+- **CustomItemProps**: Custom styling
+- **MobileView**: Mobile-optimized layout
+- **TabletView**: Tablet-optimized layout
+- **DesktopView**: Desktop-optimized layout
+- **ExpiredPromo**: Expired promotional code
+- **AlreadyApplied**: Already applied promo code
+
+**Features**:
+- Apply promotional codes
+- Remove promotional codes
+- Form validation
+- Error handling
+- Success feedback
+- Basket integration
+
 ## Mock Data Files
 
 ### Product Data
@@ -161,6 +240,26 @@ This directory contains comprehensive Storybook stories for all the components i
   - US addresses (standard, business, apartment, long names)
   - International addresses (UK, Canada, Australia, Germany, Japan, France, Italy, Spain, Netherlands, Sweden)
   - Special cases (PO Box, rural, military)
+
+### Customer Data
+- `customers.js`: Customer scenarios including:
+  - **Guest Customer**: Not authenticated user
+  - **Registered Customer**: Standard authenticated user with profile
+  - **Premium Customer**: User with loyalty points and enhanced features
+  - **Customer with Multiple Addresses**: User with home, work, and vacation addresses
+  - **New Customer**: Recently registered user
+  - **Incomplete Customer**: User with missing profile information
+
+### Basket Data
+- `baskets.js`: Shopping basket scenarios including:
+  - **Empty Basket**: No items in basket
+  - **Guest Basket**: Basket for non-authenticated users
+  - **Registered User Basket**: Basket for authenticated users
+  - **Large Basket**: Basket with expensive items and promotions
+  - **Promotional Basket**: Basket with applied promotional codes
+  - **Gift Basket**: Basket with gift-wrapped items
+  - **Basket with Errors**: Basket with validation errors
+  - **Basket with Suit**: Complex product basket (existing)
 
 ## Running the Stories
 
@@ -277,13 +376,16 @@ All components should be tested for:
 
 ## Summary
 
-### Total Stories: 62
+### Total Stories: 95
 - **ProductTile**: 13 stories
 - **AddressDisplay**: 19 stories  
 - **DisplayPrice**: 8 stories
 - **LoadingSpinner**: 9 stories
 - **Breadcrumb**: 8 stories
 - **ProductView**: 6 stories
+- **Header**: 10 stories
+- **AuthModal**: 14 stories
+- **PromoCode**: 13 stories
 
-### Components Covered: 6
+### Components Covered: 9
 All stories are lint-compliant, accessibility-compliant, and well-documented with comprehensive descriptions and interactive examples where appropriate. 
