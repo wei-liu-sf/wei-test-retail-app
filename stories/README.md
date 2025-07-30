@@ -1,121 +1,94 @@
-# ProductTile Storybook Stories
+# Storybook Stories Overview
 
-This directory contains comprehensive Storybook stories for the ProductTile component, showcasing all its features and variations.
+This directory contains comprehensive Storybook stories for all components in the PWA Kit application. Each component has multiple stories showcasing different use cases, configurations, and interactive examples.
 
-## Available Stories
+## Available Components
 
-### 1. Default
-- **Description**: Default ProductTile with all features enabled including favourites, variations, and promotions
-- **Features**: Heart icon, color swatches, promotional callouts, product badges
-- **Use Case**: Standard product display in product listings
+### 1. ProductTile
+**File**: `ProductTile.stories.js` (13 stories)
+- Product display with variations, favourites, and promotions
+- Loading states and responsive layouts
+- Interactive favourite functionality
 
-### 2. Favourite
-- **Description**: ProductTile with the product marked as favourite (heart icon filled)
-- **Features**: Filled heart icon, all other default features
-- **Use Case**: Wishlist display, showing favourited products
+### 2. AddressDisplay  
+**File**: `AddressDisplay.stories.js` (19 stories)
+- International address formats (US, UK, Canada, Australia, Germany, Japan, France, Italy, Spain, Netherlands, Sweden)
+- Business and special address types (PO Box, rural, military)
+- Edge cases and long content handling
 
-### 3. NoFavouriteOption
-- **Description**: ProductTile without the favourite functionality - no heart icon displayed
-- **Features**: All default features except favourite functionality
-- **Use Case**: Product listings where wishlist is not available
+### 3. DisplayPrice
+**File**: `DisplayPrice.stories.js` (8 stories)
+- Standard, sale, set, and master pricing
+- Multiple currency support
+- Interactive price editing
 
-### 4. VariantProduct
-- **Description**: ProductTile for a variant product (suit) with different styling and structure
-- **Features**: Variant-specific data, different product structure
-- **Use Case**: Displaying complex products with multiple variants
+### 4. LoadingSpinner
+**File**: `LoadingSpinner.stories.js` (9 stories)
+- Customizable loading indicators
+- Different sizes, colors, and animation speeds
+- Interactive spinner customizer
 
-### 5. SimpleProduct
-- **Description**: ProductTile for a simple product without variations - no swatches displayed
-- **Features**: Basic product display without variation swatches
-- **Use Case**: Simple products without color/size options
+### 5. Breadcrumb
+**File**: `Breadcrumb.stories.js` (8 stories)
+- Navigation hierarchy display
+- Deep and shallow breadcrumb examples
+- Interactive breadcrumb builder
 
-### 6. Loading
-- **Description**: ProductTile in loading state - shows skeleton placeholders for image and content
-- **Features**: Skeleton loading animation
-- **Use Case**: Initial page load, data fetching states
+### 6. ProductView
+**File**: `ProductView.stories.js` (6 stories)
+- Detailed product page display
+- Variant selection and stock status
+- Loading and error states
 
-### 7. RefreshingData
-- **Description**: ProductTile showing skeleton loading for pricing and promotions while data is being refreshed
-- **Features**: Partial skeleton loading for pricing section
-- **Use Case**: Data refresh scenarios, price updates
+## Quick Start
 
-### 8. CustomImageView
-- **Description**: ProductTile using medium image view type instead of the default large
-- **Features**: Custom image sizing
-- **Use Case**: Different layout requirements, responsive design
-
-### 9. CustomImageProps
-- **Description**: ProductTile with custom dynamic image properties for optimized loading
-- **Features**: Custom image loading configuration
-- **Use Case**: Performance optimization, custom image handling
-
-### 10. CustomBadges
-- **Description**: ProductTile with custom badge configuration for displaying product labels
-- **Features**: Custom badge styling and configuration
-- **Use Case**: Brand-specific product labeling
-
-### 11. CustomSelectableAttribute
-- **Description**: ProductTile configured to show size swatches instead of color swatches
-- **Features**: Custom variation attribute display
-- **Use Case**: Products with different primary variation types
-
-### 12. GridLayout
-- **Description**: Multiple ProductTiles displayed in a responsive grid layout
-- **Features**: Grid layout showcase with multiple product types
-- **Use Case**: Product listing pages, category pages
-
-### 13. Interactive
-- **Description**: Interactive ProductTile with working favourite functionality
-- **Features**: Working favourite toggle, state management
-- **Use Case**: Testing favourite functionality, user interaction
-
-## Component Props
-
-The ProductTile component accepts the following props:
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `product` | Object | - | Product data object containing all product information |
-| `enableFavourite` | Boolean | `false` | Enable the favourite/wishlist icon |
-| `isFavourite` | Boolean | `false` | Whether the product is currently marked as favourite |
-| `onFavouriteToggle` | Function | - | Callback function when favourite icon is clicked |
-| `imageViewType` | String | `'large'` | The view type for the product image (large, medium, small) |
-| `selectableAttributeId` | String | `'color'` | The variation attribute ID to display as swatches |
-| `dynamicImageProps` | Object | - | Props for the dynamic image component |
-| `badgeDetails` | Array | - | Configuration for product badges |
-| `isRefreshingData` | Boolean | `false` | Show loading skeleton for pricing and promotions |
-
-## Mock Data
-
-The stories use several mock data files:
-
-- `master-25517823M.js`: Complex product with multiple variants and variations
-- `variant-750518699578M.js`: Variant product (suit) with different structure
-- `simple-product.js`: Simple product without variations
-
-## Running the Stories
-
-To run the Storybook stories:
-
+### Running Storybook
 ```bash
 npm run storybook
 ```
+This starts Storybook on `http://localhost:6006`
 
-This will start Storybook on `http://localhost:6006` where you can interact with all the ProductTile stories.
+### Building Storybook
+```bash
+npm run build-storybook
+```
+This creates a static build for deployment.
+
+## Documentation
+
+- **Detailed Documentation**: See `Components-README.md` for comprehensive component documentation
+- **Component Props**: Each story file includes detailed prop documentation
+- **Mock Data**: Mock data files are in `app/mocks/` directory
+- **Interactive Examples**: Many stories include interactive examples for testing
 
 ## Development
 
-When adding new stories:
+### Adding New Stories
+1. Examine the component's props and functionality
+2. Create mock data if needed in `app/mocks/`
+3. Add stories for different use cases and edge cases
+4. Include comprehensive documentation
+5. Test interactive features where appropriate
+6. Update `Components-README.md` with new stories
 
-1. Create mock data if needed in `app/mocks/`
-2. Add the story to `ProductTile.stories.js`
-3. Include proper documentation in the story parameters
-4. Test the story in Storybook
+### Best Practices
+- Cover all major use cases and edge cases
+- Use realistic mock data
+- Include interactive examples for complex components
+- Provide clear documentation for each story
+- Consider accessibility and responsive design
+- Test across different screen sizes
 
-## Best Practices
+## Mock Data Files
 
-- Each story should demonstrate a specific use case or feature
-- Include comprehensive documentation for each story
-- Use realistic mock data that represents actual product structures
-- Test interactive features like the favourite toggle
-- Ensure stories work across different screen sizes 
+### Product Data
+- `master-25517823M.js`: Complex product with multiple variants
+- `variant-750518699578M.js`: Variant product (suit)
+- `simple-product.js`: Simple product without variations
+
+### Address Data
+- `addresses.js`: Comprehensive address examples including US, international, and special cases
+
+## Total Stories: 63
+
+All stories are lint-compliant, accessibility-compliant, and well-documented with comprehensive descriptions and interactive examples where appropriate. 
