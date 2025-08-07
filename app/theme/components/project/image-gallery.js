@@ -50,6 +50,14 @@ export default {
             heroImage: {
                 maxWidth: ['none', 'none', 'none', '680px']
             }
+        },
+        lg: {
+            heroImageSkeleton: {
+                maxWidth: ['none', 'none', 'none', '800px']
+            },
+            heroImage: {
+                maxWidth: ['none', 'none', 'none', '800px']
+            }
         }
     },
     defaultProps: {

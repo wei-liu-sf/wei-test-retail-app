@@ -16,9 +16,9 @@ export const useVariationParams = (
     isProductPartOfSet = false,
     isProductPartOfBundle = false
 ) => {
-    const {variationAttributes = [], variationValues = {}} = product
+    const {variationAttributes = [], variationValues = {}} = product || {}
 
-    const [allParams, productParams] = usePDPSearchParams(product.id)
+    const [allParams, productParams] = usePDPSearchParams(product?.id || '')
     const params = isProductPartOfSet || isProductPartOfBundle ? productParams : allParams
 
     // Using all the variation attribute id from the array generated below, get

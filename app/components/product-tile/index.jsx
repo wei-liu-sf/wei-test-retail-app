@@ -94,7 +94,7 @@ const ProductTile = (props) => {
         isRefreshingData = false,
         ...rest
     } = props
-    const {imageGroups, productId, representedProduct, variants} = product
+    const {imageGroups, productId, representedProduct, variants} = product || {}
 
     const intl = useIntl()
     const {currency} = useCurrency()
@@ -104,7 +104,7 @@ const ProductTile = (props) => {
     const isMasterVariant = !!variants
     const initialVariationValue =
         isMasterVariant && !!representedProduct
-            ? variants?.find((variant) => variant.productId == product.representedProduct.id)
+            ? variants?.find((variant) => variant.productId == product?.representedProduct?.id)
                   ?.variationValues?.[selectableAttributeId]
             : undefined
 
@@ -145,7 +145,7 @@ const ProductTile = (props) => {
     // RecommendedProducts provides a localized product name as `name` and non-localized product
     // name as `productName`. ProductList provides a localized name as `productName` and does not
     // use the `name` property.
-    const localizedProductName = product.name ?? product.productName
+    const localizedProductName = product?.name ?? product?.productName
 
     const productWithFilteredVariants = useMemo(() => {
         const variants = product?.variants?.filter(
@@ -171,8 +171,8 @@ const ProductTile = (props) => {
             badgeDetails.forEach((item) => {
                 if (
                     item.propertyName &&
-                    typeof product.representedProduct[item.propertyName] === 'boolean' &&
-                    product.representedProduct[item.propertyName] === true
+                    typeof product?.representedProduct?.[item.propertyName] === 'boolean' &&
+                    product?.representedProduct?.[item.propertyName] === true
                 ) {
                     labelsMap.set(intl.formatMessage(item.label), item.color)
                 }

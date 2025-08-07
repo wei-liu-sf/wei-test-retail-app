@@ -21,7 +21,7 @@ export const useVariant = (
     isProductPartOfSet = false,
     isProductPartOfBundle = false
 ) => {
-    const {variants = []} = product
+    const {variants = []} = product || {}
     const variationParams = useVariationParams(product, isProductPartOfSet, isProductPartOfBundle)
 
     // Get a filtered array of variants. The resulting array will only have variants

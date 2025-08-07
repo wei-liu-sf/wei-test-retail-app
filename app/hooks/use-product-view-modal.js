@@ -35,7 +35,7 @@ export const useProductViewModal = (initialProduct) => {
             select: (data) => {
                 // if the product id is the same as the initial product id,
                 // then merge the data with the initial product to be able to show correct quantity in the modal
-                if (data.id === initialProduct.productId) {
+                if (data.id === initialProduct?.productId) {
                     return {
                         ...initialProduct,
                         ...data

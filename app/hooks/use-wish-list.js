@@ -16,13 +16,13 @@ export const useWishList = ({listId = ''} = {}) => {
     const createCustomerProductList = useShopperCustomersMutation('createCustomerProductList')
     const {data: productLists, ...restOfQuery} = useCustomerProductLists(
         {
-            parameters: {customerId}
+            parameters: {customerId: customerId || ''}
         },
         {
             onSuccess: (data) => {
                 if (!data.total) {
                     createCustomerProductList.mutate({
-                        parameters: {customerId},
+                        parameters: {customerId: customerId || ''},
                         // we only use one type of product lists for now
                         body: {type: 'wish_list'}
                     })

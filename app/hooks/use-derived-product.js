@@ -30,10 +30,16 @@ export const useDerivedProduct = (
     // used for product bundles when there are multiple products
     const lowestStockLevelProductName = product?.inventory?.lowestStockLevelProductName
     const intl = useIntl()
-    const variant = useVariant(product, isProductPartOfSet, isProductPartOfBundle)
-    const variationParams = useVariationParams(product, isProductPartOfSet, isProductPartOfBundle)
+
+    // Always call hooks with consistent parameters to prevent hook count changes
+    const variant = useVariant(product || null, isProductPartOfSet, isProductPartOfBundle)
+    const variationParams = useVariationParams(
+        product || null,
+        isProductPartOfSet,
+        isProductPartOfBundle
+    )
     const variationAttributes = useVariationAttributes(
-        product,
+        product || null,
         isProductPartOfSet,
         isProductPartOfBundle
     )

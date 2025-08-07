@@ -32,7 +32,7 @@ export const useUpdateShopperContext = () => {
     const createShopperContext = useShopperContextsMutation('createShopperContext')
     const updateShopperContext = useShopperContextsMutation('updateShopperContext')
     const {data: shopperContext, isLoading} = useShopperContext(
-        {parameters: {usid, siteId: site.id}},
+        {parameters: {usid: usid || '', siteId: site.id}},
         {enabled: !isServer && Boolean(usid)}
     )
     // Handle updating the shopper context based on URL search params

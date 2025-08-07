@@ -57,11 +57,11 @@ const formatSuggestions = (searchSuggestions, input) => {
         productSuggestions: searchSuggestions?.productSuggestions?.products?.map((product) => {
             return {
                 type: 'product',
-                currency: product.currency,
-                price: product.price,
-                productId: product.productId,
-                name: boldString(product.productName, capitalize(input)),
-                link: productUrlBuilder({id: product.productId})
+                currency: product?.currency,
+                price: product?.price,
+                productId: product?.productId,
+                name: boldString(product?.productName, capitalize(input)),
+                link: productUrlBuilder({id: product?.productId})
             }
         }),
         phraseSuggestions: searchSuggestions?.categorySuggestions?.suggestedPhrases?.map(

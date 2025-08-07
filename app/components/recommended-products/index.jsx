@@ -129,7 +129,7 @@ const RecommendedProducts = ({zone, recommender, products, title, shouldFetch, .
                 },
                 body: {
                     quantity: 1,
-                    productId: product.productId,
+                    productId: product?.productId,
                     public: false,
                     priority: 1,
                     type: 'product'
@@ -161,7 +161,7 @@ const RecommendedProducts = ({zone, recommender, products, title, shouldFetch, .
     const removeItemFromWishlist = async (product) => {
         try {
             const wishlistItem = wishlist?.customerProductListItems?.find(
-                (item) => item.productId === product.productId
+                (item) => item.productId === product?.productId
             )
             if (!wishlistItem || !wishlist || !customerId) {
                 return
@@ -176,7 +176,7 @@ const RecommendedProducts = ({zone, recommender, products, title, shouldFetch, .
             toast({
                 title: formatMessage(TOAST_MESSAGE_REMOVED_FROM_WISHLIST),
                 status: 'success',
-                id: product.productId
+                id: product?.productId
             })
         } catch {
             toast({

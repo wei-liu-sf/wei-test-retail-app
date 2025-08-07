@@ -24,7 +24,7 @@ import {filterImageGroups} from '@salesforce/retail-react-app/app/utils/product-
  * @returns {Object} image
  */
 export const getVariantValueSwatch = (product, variationValue) => {
-    const {imageGroups = []} = product
+    const {imageGroups = []} = product || {}
 
     return filterImageGroups(imageGroups, {
         viewType: 'swatch',
@@ -72,7 +72,7 @@ export const buildVariantValueHref = ({
  * @returns
  */
 export const isVariantValueOrderable = (product, variationParams) => {
-    return product.variants
+    return (product?.variants || [])
         .filter(({variationValues}) =>
             Object.keys(variationParams).every(
                 (key) => variationValues[key] === variationParams[key]
@@ -96,22 +96,23 @@ export const useVariationAttributes = (
     isProductPartOfSet = false,
     isProductPartOfBundle = false
 ) => {
-    const {variationAttributes = []} = product
+    const {variationAttributes = []} = product || {}
     const location = useLocation()
     const variationParams = useVariationParams(product, isProductPartOfSet, isProductPartOfBundle)
-    const existingParams = usePDPSearchParams(product.id)
+    const existingParams = usePDPSearchParams(product?.id || '')
     const isBundleChildVariant = isProductPartOfBundle && product?.type?.variant
 
     // In the product bundle edit modal on the cart page, the variant ID of each bundle child is used as a key
     // for query parameters, so when a new variant is selected, a new query parameter is added since variants
     // have different IDs. The old one is not overwritten with existing logic so we remove it here
     if (isBundleChildVariant) {
-        const [allParams] = existingParams
-        product?.variants?.forEach(({productId: variantId}) => {
-            if (variantId !== product.id && allParams.get(variantId)) {
-                allParams.delete(variantId)
+        const [allParams] = existingParams(product?.variants || []).forEach(
+            ({productId: variantId}) => {
+                if (variantId !== product?.id && allParams.get(variantId)) {
+                    allParams.delete(variantId)
+                }
             }
-        })
+        )
     }
 
     return useMemo(
@@ -137,7 +138,7 @@ export const useVariationAttributes = (
                             pathname: location.pathname,
                             existingParams,
                             newParams: params,
-                            productId: product.id,
+                            productId: product?.id,
                             isProductPartOfSet,
                             isProductPartOfBundle
                         }),

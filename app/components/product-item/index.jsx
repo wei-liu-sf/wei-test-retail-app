@@ -57,7 +57,7 @@ const ProductItem = ({
     return (
         <Box
             position="relative"
-            data-testid={`sf-cart-item-${product.productId ? product.productId : product.id}`}
+            data-testid={`sf-cart-item-${product?.productId ? product?.productId : product?.id}`}
         >
             <ItemVariantProvider variant={product}>
                 {showLoading && <LoadingSpinner />}
@@ -110,7 +110,7 @@ const ProductItem = ({
                                             const {value} = e.target
 
                                             if (!value) {
-                                                setQuantity(product.quantity)
+                                                setQuantity(product?.quantity)
                                             }
                                         }}
                                         onChange={(stringValue, numberValue) => {

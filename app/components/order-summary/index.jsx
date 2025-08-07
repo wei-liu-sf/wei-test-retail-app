@@ -75,12 +75,12 @@ const CartItems = ({basket}) => {
                         {basket.productItems?.map((product, idx) => {
                             const variant = {
                                 ...product,
-                                ...(products && products[product.productId]),
-                                price: product.price
+                                ...(products && products[product?.productId]),
+                                price: product?.price
                             }
                             return (
                                 <ItemVariantProvider
-                                    key={product.productId}
+                                    key={product?.productId}
                                     index={idx}
                                     variant={variant}
                                 >

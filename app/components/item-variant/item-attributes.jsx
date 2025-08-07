@@ -61,7 +61,7 @@ const ItemAttributes = ({includeQuantity, currency, ...props}) => {
                 // formats response so we can easily display child quantity/variant selection
                 return result?.data?.map((item) => {
                     const quantity = variant?.bundledProductItems.find(
-                        (childProduct) => childProduct.productId === item.id
+                        (childProduct) => childProduct?.productId === item?.id
                     )?.quantity
                     return {
                         ...item,
@@ -116,7 +116,7 @@ const ItemAttributes = ({includeQuantity, currency, ...props}) => {
             {!productBundleIsLoading && productBundleData && !productBundleVariantData && (
                 <Box>
                     {productBundleData?.bundledProducts.map(({product, quantity}) => (
-                        <Box marginTop={2} key={product.id}>
+                        <Box marginTop={2} key={product?.id}>
                             <Text fontSize="sm" color="gray.700" as="b">
                                 {product?.name}
                             </Text>

@@ -204,7 +204,7 @@ export const getDecoratedVariationAttributes = (product, opts = {}) => {
                     variationValues
                 })?.[0]?.images[0],
                 href: rebuildPathWithParams(
-                    productUrlBuilder({id: product.productId}),
+                    productUrlBuilder({id: product?.productId}),
                     variationValues
                 )
             }
